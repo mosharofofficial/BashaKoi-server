@@ -18,8 +18,30 @@ const updateUserFromDB = async (updatedInfo: Partial<IUser>, email: string) => {
     return user;
   } catch (error) {
     console.log(error);
-    throw error;
   }
 };
 
-export { addNewUserToDB, updateUserFromDB };
+const getUserDataFromDB = async (email: string) => {
+  try {
+    const userData = await User.findOne({ email });
+    return userData;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const deleteUserFromDB = async (email: string) => {
+  try {
+    const result = await User.findOneAndDelete({ email });
+    return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export {
+  addNewUserToDB,
+  updateUserFromDB,
+  getUserDataFromDB,
+  deleteUserFromDB,
+};
