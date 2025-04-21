@@ -3,13 +3,18 @@ import cors from "cors";
 import { useRouters } from "./utils/useAllRouter";
 import { AllRoutes } from "./routes/routes";
 import globalErrorHandler from "./utils/errorHandling";
+import cookieParser from "cookie-parser";
+
 export const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 app.use(express.json());
-useRouters(AllRoutes);
+app.use(cookieParser());
 app.use(globalErrorHandler);
 
-app.get("/", (req, res) => {
-  res.send("Basha Koi chole ╰(°▽°)╯");
-});
+useRouters(AllRoutes);

@@ -1,9 +1,14 @@
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
+import bcrypt from "bcrypt";
 
 const addNewUserToDB = async (userData: IUser) => {
   try {
-    return await User.create(userData);
+    const hashedPass = await bcrypt.hash(userData.password, 10);
+
+    const newUser = await User.create({ ...userData, password: hashedPass });
+
+    return newUser;
   } catch (error) {
     console.log(error);
   }
@@ -24,11 +29,12 @@ const updateUserFromDB = async (updatedInfo: Partial<IUser>, email: string) => {
 const getUserDataFromDB = async (email: string) => {
   try {
     const userData = await User.findOne({ email });
+    console.log("service: ",userData);
     return userData;
   } catch (error) {
     console.log(error);
   }
-};
+}; 
 
 const deleteUserFromDB = async (email: string) => {
   try {

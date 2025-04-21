@@ -8,8 +8,5 @@ export interface IUser {
   profileImage?: string;
   createdAt: Number;
   favouriteFlats: mongoose.Types.ObjectId;
-}
-
-export interface AuthUser extends Omit<IUser, "password"> {
-  token: String;
+  token?: string;
 }
