@@ -25,7 +25,7 @@ export const verifyToken: RequestHandler = async (req, res, next) => {
       res.status(403).json({ status: "failed", message: "Forbidden" });
       return;
     }
+    // console.log("passed");
     next();
   });
 };
-

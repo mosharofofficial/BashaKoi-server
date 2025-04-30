@@ -20,6 +20,7 @@ const updateUserFromDB = async (updatedInfo: Partial<IUser>, email: string) => {
       new: true,
     });
 
+    // console.log("updated user controller: ", user);
     return user;
   } catch (error) {
     console.log(error);
@@ -29,7 +30,7 @@ const updateUserFromDB = async (updatedInfo: Partial<IUser>, email: string) => {
 const getUserDataFromDB = async (email: string) => {
   try {
     const userData = await User.findOne({ email });
-    console.log("service: ",userData);
+    // console.log("service: ",userData);
     return userData;
   } catch (error) {
     console.log(error);

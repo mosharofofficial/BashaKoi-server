@@ -1,13 +1,19 @@
 import mongoose from "mongoose";
 
-export interface Flat {
-  id: mongoose.Types.ObjectId;
+export interface IRoomTypes {
+  bedroom: number;
+  bathroom: number;
+  kitchen: number;
+  livingRoom: number;
+  balcony?: number;
+}
+
+export interface IFlat {
   rooms: number;
-  description: string;
+  roomTypes: IRoomTypes;
   location: string;
   coordinates?: { lat: number; lng: number };
-  availableFrom: Date | null;
+  availableFrom: Date | false;
   image: string[];
-  ownerId: mongoose.Types.ObjectId;
-  createdAt: Date;
+  ownerId: mongoose.Schema.Types.ObjectId;
 }

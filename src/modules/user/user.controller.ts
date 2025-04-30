@@ -16,7 +16,6 @@ const createUserController: RequestHandler = async (req, res, next) => {
   const userData = req.body;
   try {
     const newUser = await addNewUserToDB(userData);
-    (newUser as IUser).password = "HIDDEN";
 
     const token = generateJWTToken({
       email: userData.email,
@@ -28,6 +27,8 @@ const createUserController: RequestHandler = async (req, res, next) => {
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24,
     });
+
+    (newUser as IUser).password = "HIDDEN";
 
     res.json(newUser);
   } catch (error) {
@@ -45,14 +46,18 @@ const readUserController: RequestHandler = async (req, res, next) => {
   }
 };
 
-const updateUserController: RequestHandler = async (req, res) => {
+const updateUserController: RequestHandler = async (req, res, next) => {
   try {
+    ["email", "password"].forEach((key) => delete req.body.updated[key]);
     const updatedUser = await updateUserFromDB(
       req.body.updated,
       req.query.email as string
     );
+    (updatedUser as IUser).password = "HIDDEN";
     res.json(updatedUser);
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 };
 
 const deleteUserController: RequestHandler = async (req, res, next) => {
@@ -70,7 +75,6 @@ const deleteUserController: RequestHandler = async (req, res, next) => {
 const loginUser: RequestHandler = async (req, res, next) => {
   try {
     const userData = await getUserDataFromDB(req.body.email);
-    console.log("controller: ", userData);
     if (
       !userData ||
       !(await bcrypt.compare(req.body.password, userData.password))
