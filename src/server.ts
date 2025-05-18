@@ -11,7 +11,7 @@ const main = async ()=> {
         });
 
     } catch (error) {
-        console.log("could not connect to DB;")
+        console.log("could not connect to DB ")
     }
 }
 

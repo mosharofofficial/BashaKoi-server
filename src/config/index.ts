@@ -8,4 +8,5 @@ export const config = {
   db_url: process.env.DB_URL,
   secret: process.env.SECRET,
   node_env: process.env.NODE_ENV,
+  
 };

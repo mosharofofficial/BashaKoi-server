@@ -19,6 +19,7 @@ const createUserController: RequestHandler = async (req, res, next) => {
 
     const token = generateJWTToken({
       email: userData.email,
+      role: userData.role,
     });
 
     res.cookie("token", token, {
@@ -90,6 +91,7 @@ const loginUser: RequestHandler = async (req, res, next) => {
       (userData as IUser).password = "HIDDEN";
       const token = generateJWTToken({
         email: req.body.email,
+        role: userData.role,
       });
 
       res.cookie("token", token, {

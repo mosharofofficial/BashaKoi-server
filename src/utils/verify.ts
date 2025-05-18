@@ -4,6 +4,7 @@ import { config } from "../config";
 
 export const verifyToken: RequestHandler = async (req, res, next) => {
   const token = req?.cookies?.token;
+  // console.log(token)
 
   if (!(typeof token === "string")) {
     res.status(401).json({
@@ -26,6 +27,7 @@ export const verifyToken: RequestHandler = async (req, res, next) => {
       return;
     }
     // console.log("passed");
+    req.body.decoded = decoded;
     next();
   });
 };

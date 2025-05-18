@@ -1,0 +1,23 @@
+import { IFlat } from "./flat.interface";
+import { Flat } from "./flat.model";
+
+
+
+
+export const addFlat2DB =async (flatData:IFlat)=>{
+    try {
+       const result = await Flat.create(flatData);
+       return result;
+    } catch (error) {
+        console.log("error: ", error);
+    }
+}
+
+// export const getFlatFromDB = async ()=>{
+//     try {
+//         const result = Flat.
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
