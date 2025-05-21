@@ -28,6 +28,8 @@ export const verifyToken: RequestHandler = async (req, res, next) => {
     }
     // console.log("passed");
     req.body.decoded = decoded;
+    console.log("decoded: ", decoded);
     next();
   });
 };
+

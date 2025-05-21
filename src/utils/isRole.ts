@@ -5,7 +5,7 @@ export const isRole = (role:string) => {
         if (req.body?.decoded?.role === role) {
             next();
         } else {
-            console.log("not role");
+            // console.log("not role");
             res.json({
                 status: 403,
                 message: "Forbidden Request"

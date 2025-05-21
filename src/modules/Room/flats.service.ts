@@ -13,11 +13,12 @@ export const addFlat2DB =async (flatData:IFlat)=>{
     }
 }
 
-// export const getFlatFromDB = async ()=>{
-//     try {
-//         const result = Flat.
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
+export const getFlatFromDB = async (id:string)=>{
+    try {
+        const result = Flat.findById(id);
+        return result;
+    } catch (error) {
+        console.log(error)
+    }
+}
 
