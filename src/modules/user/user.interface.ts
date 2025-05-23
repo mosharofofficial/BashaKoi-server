@@ -7,6 +7,6 @@ export interface IUser {
   role: "owner" | "tenant";
   profileImage?: string;
   createdAt: Number;
-  favouriteFlats: mongoose.Types.ObjectId;
+  favouriteFlats:string[];
   token?: string;
 }

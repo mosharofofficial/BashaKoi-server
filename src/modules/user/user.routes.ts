@@ -12,7 +12,7 @@ export const userRouter = Router();
 
 userRouter.post("/create-user", createUserController);
 userRouter.patch("/update-user", verifyToken, updateUserController);
-userRouter.get("/get-user", readUserController);
+userRouter.post("/get-user",verifyToken, readUserController);
 userRouter.delete("/delete-user",verifyToken, deleteUserController);
 userRouter.post("/login", loginUser);
 

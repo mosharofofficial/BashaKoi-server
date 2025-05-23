@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { IUser } from "../user/user.interface";
 
 export interface IRoomTypes {
   bedroom: number;
@@ -15,5 +16,5 @@ export interface IFlat {
   coordinates?: { lat: number; lng: number };
   availableFrom: Date | false;
   image: string[];
-  ownerId: mongoose.Schema.Types.ObjectId;
+  ownerId: string|IUser;
 }

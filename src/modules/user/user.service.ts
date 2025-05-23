@@ -29,13 +29,13 @@ const updateUserFromDB = async (updatedInfo: Partial<IUser>, email: string) => {
 
 const getUserDataFromDB = async (email: string) => {
   try {
-    const userData = await User.findOne({ email });
+    const userData = await User.findOne({ email }).populate("favouriteFlats");
     // console.log("service: ",userData);
     return userData;
   } catch (error) {
     console.log(error);
   }
-}; 
+};
 
 const deleteUserFromDB = async (email: string) => {
   try {

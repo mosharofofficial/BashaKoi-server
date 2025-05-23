@@ -12,11 +12,13 @@ const userSchema = new Schema<IUser>(
     password: { type: String, required: [true, "password is required"] },
     role: { type: String, required: [true, "role is required"] },
     profileImage: { type: String, required: false },
-    favouriteFlats: {
-      type: Schema.Types.ObjectId,
-      ref: "Flat",
-      required: false,
-    },
+    favouriteFlats: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Flat",
+        required: false,
+      },
+    ],
   },
   { timestamps: true }
 );

@@ -7,7 +7,11 @@ declare global {
             decoded?: {
                 email?:string;
                 role?:"owner" | "tenant";
+                iat?:number;
+                exp?:number;
             }
         } 
     }
 }
+
+export {};

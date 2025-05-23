@@ -27,8 +27,8 @@ export const verifyToken: RequestHandler = async (req, res, next) => {
       return;
     }
     // console.log("passed");
-    req.body.decoded = decoded;
-    console.log("decoded: ", decoded);
+    req.decoded = decoded;
+    // console.log("decoded: ", decoded);
     next();
   });
 };
