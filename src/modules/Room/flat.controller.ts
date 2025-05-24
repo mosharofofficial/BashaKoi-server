@@ -1,7 +1,8 @@
 import { RequestHandler } from "express";
-import { addFlat2DB, getFlatFromDB } from "./flats.service";
+import { addFlat2DB, getFlatFromDB, updateFlatInDB } from "./flats.service";
 import { controllerWrapper } from "../../utils/controllerWrapper";
 import { IUser } from "../user/user.interface";
+import { IFlat } from "./flat.interface";
 
 // export const createFlatController: RequestHandler = async (req, res, next) => {
 //     const flatData = req.body;
@@ -18,7 +19,10 @@ export const createFlatController: RequestHandler = controllerWrapper(
   async (req, res, next) => {
     const flatData = req.body;
     const newFlat = await addFlat2DB(flatData);
-    res.json(newFlat);
+    res.status(200).json({
+      message: "success",
+      data: newFlat,
+    });
   }
 );
 
@@ -26,6 +30,23 @@ export const readFlatController: RequestHandler = controllerWrapper(
   async (req, res, next) => {
     const flatData = await getFlatFromDB(req.body.id);
     (flatData?.ownerId as IUser).password = "HIDDEN";
-    res.json(flatData);
+    res.status(200).json({
+      message: "success",
+      data: flatData,
+    });
+  }
+);
+
+export const updateFlatController: RequestHandler = controllerWrapper(
+  async (req, res, next) => {
+    const flatData = req.body.updated;
+    const id = req.query.id;
+
+    ["ownerId"].forEach((key) => delete flatData[key]);
+    const newFlatData = await updateFlatInDB(id as string, flatData);
+    res.status(200).json({
+      message: "success",
+      data: newFlatData,
+    });
   }
 );

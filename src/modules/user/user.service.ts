@@ -1,3 +1,4 @@
+import { config } from "../../config";
 import { IUser } from "./user.interface";
 import { User } from "./user.model";
 import bcrypt from "bcrypt";
@@ -10,7 +11,9 @@ const addNewUserToDB = async (userData: IUser) => {
 
     return newUser;
   } catch (error) {
-    console.log(error);
+    if (config.node_env === "development") {
+      console.log(error);
+    }
   }
 };
 
@@ -23,7 +26,9 @@ const updateUserFromDB = async (updatedInfo: Partial<IUser>, email: string) => {
     // console.log("updated user controller: ", user);
     return user;
   } catch (error) {
-    console.log(error);
+    if (config.node_env === "development") {
+      console.log(error);
+    }
   }
 };
 
@@ -33,7 +38,9 @@ const getUserDataFromDB = async (email: string) => {
     // console.log("service: ",userData);
     return userData;
   } catch (error) {
-    console.log(error);
+    if (config.node_env === "development") {
+      console.log(error);
+    }
   }
 };
 
@@ -42,7 +49,9 @@ const deleteUserFromDB = async (email: string) => {
     const result = await User.findOneAndDelete({ email });
     return result;
   } catch (error) {
-    console.log(error);
+    if (config.node_env === "development") {
+      console.log(error);
+    }
   }
 };
 

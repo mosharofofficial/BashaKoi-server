@@ -1,3 +1,4 @@
+import { config } from "../../config";
 import { IFlat } from "./flat.interface";
 import { Flat } from "./flat.model";
 
@@ -6,7 +7,9 @@ export const addFlat2DB = async (flatData: IFlat) => {
     const result = await Flat.create(flatData);
     return result;
   } catch (error) {
-    console.log("error: ", error);
+    if (config.node_env === "development") {
+      console.log("error: ", error);
+    }
   }
 };
 
@@ -15,6 +18,22 @@ export const getFlatFromDB = async (id: string) => {
     const result = Flat.findById(id).populate("ownerId");
     return result;
   } catch (error) {
-    console.log(error);
+    if (config.node_env === "development") {
+      console.log(error);
+    }
+  }
+};
+
+export const updateFlatInDB = async function name(
+  id: string,
+  data: Partial<IFlat>
+) {
+  try {
+    const result = await Flat.findByIdAndUpdate(id, data, { new: true });
+    return result;
+  } catch (error) {
+    if (config.node_env === "development") {
+      console.log(error);
+    }
   }
 };

@@ -33,7 +33,10 @@ const createUserController: RequestHandler = controllerWrapper(
 
     (newUser as IUser).password = "HIDDEN";
 
-    res.json(newUser);
+    res.status(200).json({
+      message: "success",
+      data: newUser,
+    });
   }
 );
 
@@ -41,7 +44,11 @@ const readUserController: RequestHandler = controllerWrapper(
   async (req, res, next) => {
     const user = await getUserDataFromDB(req.body.email as string);
     (user as IUser).password = "HIDDEN";
-    res.json(user);
+
+    res.status(200).json({
+      message: "success",
+      data: user,
+    });
   }
 );
 
@@ -53,7 +60,11 @@ const updateUserController: RequestHandler = controllerWrapper(
       req.query.email as string
     );
     (updatedUser as IUser).password = "HIDDEN";
-    res.json(updatedUser);
+
+    res.status(200).json({
+      message: "success",
+      data: updatedUser,
+    });
   }
 );
 
@@ -61,7 +72,11 @@ const deleteUserController: RequestHandler = controllerWrapper(
   async (req, res, next) => {
     const deletedUser = await deleteUserFromDB(req.query.email as string);
     (deletedUser as IUser).password = "HIDDEN";
-    res.json(deletedUser);
+
+    res.status(200).json({
+      message: "success",
+      data: deletedUser,
+    });
   }
 );
 // Others
@@ -92,7 +107,11 @@ const loginUser: RequestHandler = controllerWrapper(async (req, res, next) => {
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 24,
     });
-    res.json(userData);
+
+    res.status(200).json({
+      message: "success",
+      data: userData,
+    });
   }
 });
 
