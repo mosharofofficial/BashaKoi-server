@@ -55,9 +55,21 @@ const deleteUserFromDB = async (email: string) => {
   }
 };
 
+const getAllUsersFromDB = async () => {
+  try {
+    const allUsers = await User.find({});
+    return allUsers;
+  } catch (error) {
+    if (config.node_env === "development") {
+      console.log(error);
+    }
+  }
+};
+
 export {
   addNewUserToDB,
   updateUserFromDB,
   getUserDataFromDB,
   deleteUserFromDB,
+  getAllUsersFromDB,
 };

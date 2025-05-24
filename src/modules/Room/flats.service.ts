@@ -48,3 +48,14 @@ export const deleteFlatFromDB = async (id: string) => {
     }
   }
 };
+
+export const getAllFlatsFromDB = async () => {
+  try {
+    const allFlats = await Flat.find({});
+    return allFlats;
+  } catch (error) {
+    if (config.node_env === "development") {
+      console.log(error);
+    }
+  }
+};

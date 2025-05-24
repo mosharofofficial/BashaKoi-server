@@ -4,12 +4,15 @@ import { verifyToken } from "../../utils/verify";
 import {
   createFlatController,
   deleteFlatController,
+  getAllFlatController,
   readFlatController,
   updateFlatController,
 } from "./flat.controller";
 import { isRole } from "../../utils/isRole";
 
 export const flatRouter = Router();
+
+flatRouter.get("/get-all", verifyToken, getAllFlatController)
 
 flatRouter.post(
   "/create-flat",

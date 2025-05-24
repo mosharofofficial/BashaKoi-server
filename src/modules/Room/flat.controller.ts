@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import {
   addFlat2DB,
   deleteFlatFromDB,
+  getAllFlatsFromDB,
   getFlatFromDB,
   updateFlatInDB,
 } from "./flats.service";
@@ -63,6 +64,16 @@ export const deleteFlatController: RequestHandler = controllerWrapper(
     res.status(200).json({
       message: "success",
       data: deleted,
+    });
+  }
+);
+
+export const getAllFlatController: RequestHandler = controllerWrapper(
+  async (req, res, next) => {
+    const allFlats = await getAllFlatsFromDB();
+    res.status(200).json({
+      message: "success",
+      data: allFlats,
     });
   }
 );

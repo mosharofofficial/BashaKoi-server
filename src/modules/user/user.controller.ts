@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import {
   addNewUserToDB,
   deleteUserFromDB,
+  getAllUsersFromDB,
   getUserDataFromDB,
   updateUserFromDB,
 } from "./user.service";
@@ -115,10 +116,24 @@ const loginUser: RequestHandler = controllerWrapper(async (req, res, next) => {
   }
 });
 
+const getAllUserController: RequestHandler = controllerWrapper(
+  async (req, res, next) => {
+    const allUsers = await getAllUsersFromDB();
+    allUsers?.forEach((user) => {
+      (user as IUser).password = "HIDDEN";
+    });
+    res.status(200).json({
+      message: "success",
+      data: allUsers,
+    });
+  }
+);
+
 export {
   createUserController,
   updateUserController,
   readUserController,
   deleteUserController,
   loginUser,
+  getAllUserController,
 };
