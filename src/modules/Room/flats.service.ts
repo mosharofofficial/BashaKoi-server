@@ -37,3 +37,14 @@ export const updateFlatInDB = async function name(
     }
   }
 };
+
+export const deleteFlatFromDB = async (id: string) => {
+  try {
+    const result = await Flat.findByIdAndDelete(id);
+    return result;
+  } catch (error) {
+    if (config.node_env === "development") {
+      console.log(error);
+    }
+  }
+};

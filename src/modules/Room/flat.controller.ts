@@ -1,5 +1,10 @@
 import { RequestHandler } from "express";
-import { addFlat2DB, getFlatFromDB, updateFlatInDB } from "./flats.service";
+import {
+  addFlat2DB,
+  deleteFlatFromDB,
+  getFlatFromDB,
+  updateFlatInDB,
+} from "./flats.service";
 import { controllerWrapper } from "../../utils/controllerWrapper";
 import { IUser } from "../user/user.interface";
 import { IFlat } from "./flat.interface";
@@ -47,6 +52,17 @@ export const updateFlatController: RequestHandler = controllerWrapper(
     res.status(200).json({
       message: "success",
       data: newFlatData,
+    });
+  }
+);
+
+export const deleteFlatController: RequestHandler = controllerWrapper(
+  async (req, res, next) => {
+    const id = req.query.id;
+    const deleted = await deleteFlatFromDB(id as string);
+    res.status(200).json({
+      message: "success",
+      data: deleted,
     });
   }
 );

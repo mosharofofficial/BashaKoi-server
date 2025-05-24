@@ -1,5 +1,7 @@
 import mongoose, { model, Schema } from "mongoose";
 import { IFlat, IRoomTypes } from "./flat.interface";
+import { User } from "../user/user.model";
+import { config } from "../../config";
 
 const roomTypesSchema = new Schema<IRoomTypes>(
   {
@@ -20,7 +22,7 @@ const coordinatesSchema = new Schema<{ lat: number; lng: number }>(
   { _id: false }
 );
 
-const flatShema = new Schema<IFlat>(
+const flatSchema = new Schema<IFlat>(
   {
     rooms: { type: Number, required: true },
     roomTypes: { type: roomTypesSchema, required: true },
@@ -33,4 +35,22 @@ const flatShema = new Schema<IFlat>(
   { timestamps: true }
 );
 
-export const Flat = model<IFlat>("Flat", flatShema);
+// middlewares :
+
+flatSchema.post("findOneAndDelete", async function (doc) {
+  try {
+    if (doc) {
+      await User.updateMany(
+        { favouriteFlats: doc._id },
+        { $pull: { favouriteFlats: doc._id } }
+      );
+    }
+  } catch (error) {
+    if (config.node_env === "development") {
+      console.log("flat schema post middleware: ---------------------");
+      console.log(error);
+    }
+  }
+});
+
+export const Flat = model<IFlat>("Flat", flatSchema);

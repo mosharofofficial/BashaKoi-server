@@ -3,6 +3,7 @@ import { Router } from "express";
 import { verifyToken } from "../../utils/verify";
 import {
   createFlatController,
+  deleteFlatController,
   readFlatController,
   updateFlatController,
 } from "./flat.controller";
@@ -24,4 +25,10 @@ flatRouter.patch(
   isRole("owner"),
   updateFlatController
 );
-// flatRouter.delete("/delete-flat",verifyToken, deleteUserController);
+
+flatRouter.delete(
+  "/delete-flat",
+  verifyToken,
+  isRole("owner"),
+  deleteFlatController
+);
