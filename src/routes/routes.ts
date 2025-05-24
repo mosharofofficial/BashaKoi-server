@@ -1,4 +1,4 @@
-import { flatRouter } from "../modules/Room/flat.routes";
+import { flatRouter } from "../modules/Flat/flat.routes";
 import { userRouter } from "../modules/user/user.routes";
 import { RouterObject } from "../utils/useAllRouter";
 
